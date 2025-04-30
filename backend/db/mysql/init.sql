@@ -1,6 +1,6 @@
 use auth_db;
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
     `id` varchar(255) NOT NULL,
     `username` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
