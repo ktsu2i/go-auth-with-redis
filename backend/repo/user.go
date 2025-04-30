@@ -14,6 +14,6 @@ func NewUserRepo(db *gorm.DB) *UserRepo {
 	return &UserRepo{db: db}
 }
 
-func (r *UserRepo) SignUp(u *model.User) error {
+func (r *UserRepo) CreateUser(u *model.User) error {
 	return r.db.Create(u).Error
 }

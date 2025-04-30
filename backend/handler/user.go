@@ -37,7 +37,7 @@ func SignUp(c echo.Context) error {
 	}
 
 	r := repo.NewUserRepo(DB)
-	if err := r.SignUp(&u); err != nil {
+	if err := r.CreateUser(&u); err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
