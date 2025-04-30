@@ -1,7 +1,7 @@
 package usecase
 
-import "backend/domain"
+import "backend/model"
 
 type UserUsecase interface {
-	SignUp(u *domain.User) error
+	SignUp(u *model.User) error
 }
