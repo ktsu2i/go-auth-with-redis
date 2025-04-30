@@ -1,13 +1,13 @@
-FROM golang:1.23-bookworm
+FROM golang:1.24.2-alpine3.21
 
-WORKDIR /backend
+WORKDIR /app/backend
 
 RUN go install github.com/air-verse/air@latest
 
-COPY go.mod go.sum /backend/
+COPY go.mod go.sum /app/backend/
 RUN go mod download
 
-COPY . /backend
-COPY .air.toml /backend/.air.toml
+COPY . /app/backend
+COPY .air.toml /app/backend/.air.toml
 
 CMD ["sh", "-c", "air -c .air.toml"]

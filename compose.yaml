@@ -3,11 +3,12 @@ services:
     container_name: auth_frontend
     build:
       context: ./frontend
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
     tty: true
     networks:
       - auth-network
@@ -15,11 +16,11 @@ services:
     container_name: auth_backend
     build:
       context: ./backend
-      dockerfile: ./backend/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     volumes:
-      - ./backend:/backend
+      - ./backend:/app/backend
     depends_on:
       db:
         condition: service_healthy
