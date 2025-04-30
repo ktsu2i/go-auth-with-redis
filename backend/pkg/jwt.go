@@ -18,6 +18,7 @@ type TokenPair struct {
 	AccessToken  string
 	RefreshToken string
 	UserID       string
+	JTI          string
 }
 
 func NewTokenPair(userID string) (*TokenPair, error) {
@@ -45,7 +46,7 @@ func NewTokenPair(userID string) (*TokenPair, error) {
 		return nil, err
 	}
 
-	return &TokenPair{AccessToken: accessStr, RefreshToken: refreshStr, UserID: userID}, nil
+	return &TokenPair{AccessToken: accessStr, RefreshToken: refreshStr, UserID: userID, JTI: jti}, nil
 }
 
 func Parse(tokenStr string) (*jwt.RegisteredClaims, error) {

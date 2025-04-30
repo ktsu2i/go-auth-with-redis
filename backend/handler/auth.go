@@ -2,6 +2,7 @@ package handler
 
 import (
 	"backend/model"
+	"backend/pkg"
 	"backend/repo"
 	"net/http"
 	"time"
@@ -40,6 +41,20 @@ func SignUp(c echo.Context) error {
 	if err := r.CreateUser(&u); err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
+
+	// Generate token pair
+	pair, err := pkg.NewTokenPair(u.ID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	// Save refresh token to redis
+	if err := repo.NewRedisRepo(RC).Save(c.Request().Context(), u.ID, pair.JTI, 7*24*60*60); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	// Set auth cookie
+	SetAuthCookie(c.Response().Writer, pair)
 
 	return c.JSON(http.StatusOK, u)
 }

@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/redis/go-redis/v9"
 )
 
 func main() {
@@ -16,6 +17,12 @@ func main() {
 		e.Logger.Fatal(err)
 	}
 	handler.DB = db
+
+	rc := redis.NewClient(&redis.Options{
+		Addr: "auth_redis:6379",
+		DB:   0,
+	})
+	handler.RC = rc
 
 	// Middleware
 	e.Use(middleware.Logger())
