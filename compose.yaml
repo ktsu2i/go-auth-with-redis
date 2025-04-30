@@ -12,6 +12,7 @@ services:
     tty: true
     networks:
       - auth-network
+      
   backend:
     container_name: auth_backend
     build:
@@ -33,6 +34,7 @@ services:
     restart: on-failure
     networks:
       - auth-network
+
   db:
     image: mysql:8.0
     platform: linux/amd64
@@ -55,7 +57,14 @@ services:
       retries: 3
     networks:
       - auth-network
-
+  redis:
+    image: redis:latest
+    container_name: auth_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - auth-network
+  
 volumes:
   db_data:
 
