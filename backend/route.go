@@ -9,4 +9,5 @@ import (
 func route(e *echo.Echo) {
 	api := e.Group("/api")
 	api.GET("/hello", handler.Hello)
+	api.POST("/signup", handler.SignUp)
 }
