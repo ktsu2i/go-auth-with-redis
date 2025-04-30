@@ -14,13 +14,13 @@ var (
 	secret          = os.Getenv("JWT_SECRET")
 )
 
-type Pair struct {
+type TokenPair struct {
 	AccessToken  string
 	RefreshToken string
 	UserID       string
 }
 
-func NewPair(userID string) (*Pair, error) {
+func NewTokenPair(userID string) (*TokenPair, error) {
 	jti := uuid.NewString()
 
 	access := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
@@ -45,7 +45,7 @@ func NewPair(userID string) (*Pair, error) {
 		return nil, err
 	}
 
-	return &Pair{AccessToken: accessStr, RefreshToken: refreshStr, UserID: userID}, nil
+	return &TokenPair{AccessToken: accessStr, RefreshToken: refreshStr, UserID: userID}, nil
 }
 
 func Parse(tokenStr string) (*jwt.RegisteredClaims, error) {

@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"backend/domain"
+	"backend/model"
 
 	"gorm.io/gorm"
 )
@@ -14,6 +14,6 @@ func NewUserRepo(db *gorm.DB) *UserRepo {
 	return &UserRepo{db: db}
 }
 
-func (r *UserRepo) SignUp(u *domain.User) error {
+func (r *UserRepo) SignUp(u *model.User) error {
 	return r.db.Create(u).Error
 }

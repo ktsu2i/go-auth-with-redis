@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"backend/domain"
+	"backend/model"
 	"backend/repo"
 	"net/http"
 	"time"
@@ -12,7 +12,7 @@ import (
 )
 
 func SignUp(c echo.Context) error {
-	var req domain.UserReq
+	var req model.UserReq
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
@@ -27,7 +27,7 @@ func SignUp(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	u := domain.User{
+	u := model.User{
 		ID:             UUID.String(),
 		Username:       req.Username,
 		Email:          req.Email,
