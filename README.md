@@ -1,1 +1,1 @@
-# go-auth-with-redis
+# Auth with Redis and Go
